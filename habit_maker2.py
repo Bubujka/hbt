@@ -45,7 +45,7 @@ def main():
         screen = mode.summary(store)
         answer = char_input()
         if screen.respondsto(answer):
-            screen.do(answer)
+            screen.doaction(answer)
         if have_global_action(answer):
             do_global_action(answer, store)
 
