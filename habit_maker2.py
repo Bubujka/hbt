@@ -8,6 +8,7 @@ from store import Store
 from getch import char_input
 
 GLOBAL_HOTKEYS = {
+    '$legend': '$',
     'Q': command.force_quit,
     'q': command.save_quit,
     'C': command.config,
@@ -26,16 +27,19 @@ def have_global_action(answer):
 
 def do_global_action(answer, store):
     """Выполнить команду"""
-    fn = GLOBAL_HOTKEYS[answer]
-    if isinstance(fn, dict):
-        second_answer = char_input(fn['$legend']+': ')
-        fn = fn[second_answer]
-
-    fn(store)
+    action = GLOBAL_HOTKEYS[answer]
+    if isinstance(action, dict):
+        second_answer = char_input(action['$legend']+': ')
+        if second_answer in action:
+            action = action[second_answer]
+        else:
+            return
+    action(store)
 
 
 
 def main():
+    """Функция для запуска приложения"""
     store = Store()
     while True:
         screen = mode.summary(store)
