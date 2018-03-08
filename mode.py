@@ -3,10 +3,10 @@
 import screens
 
 def summary(store):
-    return screens.SummaryScreen(store)
+    store.windows.append(screens.SummaryScreen(store))
 
 def one_by_one(store):
-    return screens.OneByOneScreen(store)
+    store.windows.append(screens.OneByOneScreen(store))
 
 def one_by_one_all(store):
-    return screens.OneByOneScreen(store)
+    store.windows.append(screens.OneByOneScreen(store))

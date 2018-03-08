@@ -4,13 +4,15 @@
 
 import lib
 import mode
+import screens
 from store import Store
 
 def main():
     """Функция для запуска приложения"""
     store = Store()
-    screen = mode.summary(store)
-    lib.repl_loop(store, screen)
+    screen = screens.SummaryScreen(store)
+    store.windows.append(screen)
+    store.render()
 
 if __name__ == '__main__':
     main()

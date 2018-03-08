@@ -1,3 +1,5 @@
+"""Модуль для взаимодействия с клавиатурой"""
+
 import sys
 import termios
 import tty

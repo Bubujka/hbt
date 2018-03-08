@@ -2,6 +2,7 @@
 
 import lib
 import mode
+
 class Screen():
     """Класс экрана"""
     def __init__(self, store):
@@ -33,22 +34,18 @@ class OneByOneScreen(Screen):
 
     def print(self):
         if self.index == len(self.habits):
-            return mode.summary(self.store)
-        lib.repl_loop(
-                self.store,
-                HabitScreen(self.store, self.habits[self.index]))
+            self.store.back()
+
+        self.store.add_window(HabitScreen(self.store, self.habits[self.index]))
         self.index += 1
-        self.print()
-
-
-
+        self.store.rerender()
 
 
 
 class HabitScreen(Screen):
     def __init__(self, store, habit):
-       super(HabitScreen, self).__init__(store)
-       self.habit = habit
+        super(HabitScreen, self).__init__(store)
+        self.habit = habit
 
     def print(self):
         print(self.habit)
@@ -62,17 +59,15 @@ class HabitScreen(Screen):
 
     def later(self):
         print('later')
-        return False
+        self.store.back()
 
     def skip(self):
         print('skip')
-        return False
+        self.store.back()
 
     def done(self):
         print('done')
-        return False
-
-
+        self.store.back()
 
 
 
@@ -88,7 +83,3 @@ class SummaryScreen(Screen):
 
     def say_b(self):
         print('bbbbbbbbbbb')
-
-
-
-

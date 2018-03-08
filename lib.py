@@ -36,9 +36,7 @@ def do_global_action(answer, store):
 
 def repl_loop(store, screen):
     """Запустить работу над экраном"""
-    print('>>>Loop started')
     while True:
-        print('>>>   Loop iteration')
         screen.print()
         answer = char_input()
         if screen.respondsto(answer):
