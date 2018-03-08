@@ -36,7 +36,8 @@ class Screen():
 class OneByOneScreen(Screen):
     def __init__(self, store):
         super(OneByOneScreen, self).__init__(store)
-        self.habits = ['one', 'two', 'three', 'four']
+        items = self.store.habits()
+        self.habits = [h for h in items if not h.is_ok()]
         self.index = 0
 
     def print(self):
@@ -47,6 +48,12 @@ class OneByOneScreen(Screen):
         self.index += 1
         self.store.rerender()
 
+def nice_print(habit):
+    """Напечатать строку и её номер"""
+    print(color_tag(habit.tag).ljust(7, " "),
+          habit.name.ljust(max_name_length() + 5, " "),
+          color_stats(habit.stats()),
+          habit.interval_for_print())
 
 
 class HabitScreen(Screen):
@@ -55,7 +62,7 @@ class HabitScreen(Screen):
         self.habit = habit
 
     def print(self):
-        print(self.habit)
+        nice_print(self.habit)
 
     def hotkeys(self):
         return {
