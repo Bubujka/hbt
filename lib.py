@@ -1,8 +1,15 @@
 """Вспомогательные функции"""
 
+from functools import lru_cache
+from os.path import expanduser
+import json
+
 from getch import char_input
 import command
 import mode
+
+
+CFG_FILE = expanduser("~/.db/wiki/habit-config.json")
 
 GLOBAL_HOTKEYS = {
     '$legend': '$',
@@ -16,6 +23,13 @@ GLOBAL_HOTKEYS = {
         'a': mode.one_by_one_all,
     }
 }
+
+
+@lru_cache()
+def cfg():
+    """Прочитать конфиг"""
+    return json.loads(open(CFG_FILE).read())
+
 
 def have_global_action(answer):
     """Обрабатывается ли этот хоткей глобально?"""

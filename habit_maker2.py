@@ -2,6 +2,9 @@
 
 """Менеджер привычек"""
 
+from colorama import init as init_colorama
+
+
 import lib
 import mode
 import screens
@@ -15,4 +18,5 @@ def main():
     store.render()
 
 if __name__ == '__main__':
+    init_colorama()
     main()
