@@ -140,6 +140,10 @@ def color_tag(tag):
 
 
 class SummaryScreen(Screen):
+    def __init__(self, *args):
+        super(SummaryScreen, self).__init__(*args)
+        self.mode = 'undone'
+
     def print(self):
         items = self.store.habits()
         ok_items = [h for h in items if h.is_ok()]
@@ -148,21 +152,37 @@ class SummaryScreen(Screen):
         mappings = {}
 
         i = 0
-        if fail_items:
-            print(Fore.RED+"Надо сделать:"+Style.RESET_ALL)
-            for habit in fail_items:
-                i += 1
-                mappings[i] = habit
-                print_with_number(habit, i)
+        if self.mode in ('all', 'undone'):
+            if fail_items:
+                print(Fore.RED+"Надо сделать:"+Style.RESET_ALL)
+                for habit in fail_items:
+                    i += 1
+                    mappings[i] = habit
+                    print_with_number(habit, i)
+        if self.mode in ('all', 'done'):
+            if ok_items:
+                print(Fore.GREEN+"Сделано:"+Style.RESET_ALL)
+                for habit in ok_items:
+                    i += 1
+                    mappings[i] = habit
+                    print_with_number(habit, i)
 
     def hotkeys(self):
         return {
-            'a': self.say_a,
-            'b': self.say_b
+            'd': self.only_done,
+            'u': self.only_undone,
+            'a': self.all
         }
 
-    def say_a(self):
-        print('aaaaaaaaaaaa')
+    def only_done(self):
+        self.mode = 'done'
 
-    def say_b(self):
-        print('bbbbbbbbbbb')
+    def only_undone(self):
+        self.mode = 'undone'
+
+    def all(self):
+        self.mode = 'all'
+
+
+
+
