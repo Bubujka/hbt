@@ -14,6 +14,13 @@ class RerenderEvent(Exception):
     """Событие перерисовки экрана"""
     pass
 
+def input_legend_for(screen):
+    screenhotkeys = "".join(screen.hotkeys().keys())
+    globalhotkeys = "".join(lib.GLOBAL_HOTKEYS.keys() - ['$legend'])
+
+    return "$ ["+screenhotkeys +' '+ globalhotkeys+"]: "
+
+
 class Store():
     """Хранилище данных и экрана"""
     def __init__(self):
@@ -43,7 +50,7 @@ class Store():
                 print(self.windows)
                 screen = self.windows[-1]
                 screen.print()
-                answer = char_input()
+                answer = char_input(input_legend_for(screen))
                 if screen.respondsto(answer):
                     screen.doaction(answer)
                 if lib.have_global_action(answer):
