@@ -1,10 +1,12 @@
 """Хранилище, состояние"""
 
 from os.path import expanduser
+from datetime import date, timedelta
 import json
 
+from colorama import ansi
+
 from getch import char_input
-from datetime import date, timedelta
 import lib
 
 
@@ -13,6 +15,10 @@ DATA_FILE = expanduser("~/.db/wiki/habits.json")
 class RerenderEvent(Exception):
     """Событие перерисовки экрана"""
     pass
+
+def clear_screen():
+    """Зачистить экран"""
+    print(ansi.clear_screen())
 
 def input_legend_for(screen):
     screenhotkeys = "".join(screen.hotkeys().keys())
@@ -47,7 +53,8 @@ class Store():
         """Отрендерить последний экран, выполнить действие в его контексте"""
         while True:
             try:
-                print(self.windows)
+                #print(self.windows)
+                clear_screen()
                 screen = self.windows[-1]
                 screen.print()
                 answer = char_input(input_legend_for(screen))
