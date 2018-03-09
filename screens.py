@@ -68,21 +68,27 @@ class HabitScreen(Screen):
         return {
             'l': self.later,
             's': self.skip,
-            'd': self.done
+            'd': self.done,
+            'u': self.undone
         }
 
     def later(self):
-        print('later')
         self.store.back()
 
     def skip(self):
-        print('skip')
+        self.habit.skip()
+        self.store.save()
         self.store.back()
 
     def done(self):
-        print('done')
+        self.habit.done()
+        self.store.save()
         self.store.back()
 
+    def undone(self):
+        self.habit.undone()
+        self.store.save()
+        self.store.back()
 
 def print_with_number(habit, number):
     """Напечатать строку и её номер"""

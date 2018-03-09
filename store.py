@@ -66,7 +66,7 @@ class Store():
                 pass
 
     def save(self):
-        pass
+        open(DATA_FILE, 'w').write(json.dumps(self.data, indent=2))
 
 
 DATE = None
