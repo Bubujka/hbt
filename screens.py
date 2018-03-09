@@ -54,6 +54,8 @@ def nice_print(habit):
           habit.name.ljust(max_name_length() + 5, " "),
           color_stats(habit.stats()),
           habit.interval_for_print())
+    if 'description' in habit.config:
+        print(habit.config['description'])
 
 
 class HabitScreen(Screen):
