@@ -13,8 +13,8 @@ from store import Store
 def main():
     """Функция для запуска приложения"""
     store = Store()
-    screen = screens.SummaryScreen(store)
-    store.windows.append(screen)
+    store.windows.append(screens.SummaryScreen(store))
+    store.windows.append(screens.OneByOneScreen(store))
     store.render()
 
 if __name__ == '__main__':
