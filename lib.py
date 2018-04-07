@@ -16,6 +16,7 @@ GLOBAL_HOTKEYS = {
     'Q': command.force_quit,
     'q': command.save_quit,
     'C': command.config,
+    'P': command.prepend_to_plan_md,
     'm': {
         '$legend': 'Mode change',
         's': mode.summary,
